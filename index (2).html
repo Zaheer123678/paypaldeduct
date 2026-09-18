@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PayPal & Stripe Fee Calculator 2026 — Merchant Fee Comparison</title>
+<meta name="description" content="Compare PayPal and Stripe processing fees side by side. Calculate merchant rates for invoicing, checkout, and in-person payments, with cross-border surcharges and annual fee projections for 2026.">
+<link rel="canonical" href="https://paypaldeduct.com/">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="PayPal & Stripe Fee Calculator 2026 — Merchant Fee Comparison">
+<meta property="og:description" content="See exactly what PayPal and Stripe take from every sale, side by side, with 2026 rates for checkout, invoicing, in-person, and ACH payments.">
+<meta property="og:url" content="https://paypaldeduct.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PayPal & Stripe Fee Calculator 2026">
+<meta name="twitter:description" content="Compare PayPal and Stripe merchant fees side by side with 2026 rates.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "PayPal & Stripe Fee Calculator 2026 — Merchant Fee Comparison",
+  "description": "A side-by-side PayPal and Stripe merchant fee calculator covering checkout, invoicing, in-person, and ACH rates, cross-border surcharges, and net-payout projections.",
+  "author": { "@type": "Organization", "name": "PayPalDeduct" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "PayPalDeduct",
+    "logo": { "@type": "ImageObject", "url": "https://paypaldeduct.com/logo.png" }
+  },
+  "datePublished": "2026-01-08",
+  "dateModified": "2026-09-18",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://paypaldeduct.com/" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is PayPal or Stripe cheaper for freelancers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For a standard card payment, Stripe's 2.9% + $0.30 online rate usually costs less than PayPal's 3.49% + $0.49 Checkout rate, though PayPal's 2.99% + $0.49 goods-and-services rate narrows the gap. Stripe pulls further ahead on invoicing, where its 0.40% rate undercuts PayPal's 3.49%. The cheaper option depends on transaction size, volume, and whether payments are card-based or bank-based."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a cross-border fee?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A cross-border fee is a surcharge, typically 1.5% on both PayPal and Stripe, added when the buyer's card or account is issued in a different country from the seller's. It stacks on top of the standard processing rate and, if the currency is also converted, an additional 1% to 4% conversion spread can apply."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do processing fees apply before or after tax?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Processing fees are calculated on the total amount charged to the customer, including any VAT or sales tax collected. The fee itself is not tax-deductible as tax; it is a business expense, so freelancers should account for it separately from the tax they remit to authorities."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I reduce PayPal or Stripe fees?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Batch smaller payments into larger invoices to dilute the fixed fee, use bank-based rails like ACH or PayPal balance transfers where the percentage rate is lower, avoid unnecessary currency conversion by invoicing in the client's local currency at your own bank, and negotiate custom rates once monthly volume is significant."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the cheapest way to invoice international clients?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For recurring or larger international invoices, Stripe Invoicing at 0.40% plus the underlying card or bank fee is typically far cheaper than PayPal Invoicing at 3.49% + $0.49 plus the 1.5% cross-border surcharge. For very large one-off transfers, a dedicated wire or a low-fee transfer service can beat both."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are Stripe ACH fees cheaper than card fees?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Stripe ACH Direct Debit charges 0.80% of the transaction capped at $5, with no fixed per-transaction fee below that cap. On a $1,000 invoice, ACH costs $8 versus roughly $29 for a standard online card payment, making it the cheaper choice whenever a client can pay by bank transfer."
+      }
+    }
+  ]
+}
+</script>
+
+<style>
+:root{
+  --navy:#0A0F1E;
+  --navy-2:#0E1526;
+  --panel: rgba(255,255,255,0.035);
+  --panel-border: rgba(148,168,210,0.16);
+  --blue:#3B82F6;
+  --blue-soft: rgba(59,130,246,0.16);
+  --emerald:#10B981;
+  --emerald-soft: rgba(16,185,129,0.14);
+  --amber:#F59E0B;
+  --red:#F0625C;
+  --ink:#E9EDF7;
+  --ink-dim:#9AA6C2;
+  --ink-faint:#6B7796;
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --font-display:'Inter Tight',Inter,-apple-system,BlinkMacSystemFont,sans-serif;
+  --font-body:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  background:
+    radial-gradient(1100px 620px at 82% -8%, rgba(59,130,246,0.16), transparent 60%),
+    radial-gradient(900px 500px at 8% 8%, rgba(16,185,129,0.09), transparent 55%),
+    var(--navy);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+.narrow{max-width:760px;margin:0 auto;padding:0 24px;}
+
+a{color:var(--blue);}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:800;letter-spacing:-0.015em;margin:0;color:#fff;}
+
+/* ---------- Header ---------- */
+header.site{
+  border-bottom:1px solid var(--panel-border);
+  padding:20px 0;
+  position:sticky;top:0;
+  background:rgba(10,15,30,0.78);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  z-index:40;
+}
+.site-row{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:800;font-size:17px;color:#fff;}
+.brand-mark{
+  width:30px;height:30px;border-radius:9px;flex:none;
+  background:linear-gradient(135deg,var(--blue),var(--emerald));
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;color:#04101f;
+}
+.tagline{font-size:13px;color:var(--ink-dim);display:none;}
+@media(min-width:640px){.tagline{display:block;}}
+
+/* ---------- Hero ---------- */
+.hero{padding:56px 0 28px;}
+.eyebrow-row{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.pill{
+  font-size:12.5px;font-weight:600;color:var(--ink-dim);
+  border:1px solid var(--panel-border);
+  padding:5px 11px;border-radius:100px;
+  background:var(--panel);
+}
+.pill.live{color:#7ee8b5;border-color:rgba(16,185,129,0.35);background:var(--emerald-soft);}
+h1.hero-h{font-size:clamp(30px,4.4vw,48px);line-height:1.08;max-width:16ch;}
+.hero-sub{margin-top:16px;font-size:17px;color:var(--ink-dim);max-width:56ch;line-height:1.55;}
+
+/* ---------- Calculator shell ---------- */
+.calc-shell{
+  margin-top:36px;
+  background:var(--panel);
+  border:1px solid var(--panel-border);
+  border-radius:var(--radius-lg);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  overflow:hidden;
+}
+.tabs{display:flex;border-bottom:1px solid var(--panel-border);overflow-x:auto;}
+.tab-btn{
+  flex:1 1 0;min-width:110px;
+  background:transparent;border:0;color:var(--ink-faint);
+  font-family:var(--font-body);font-weight:600;font-size:14.5px;
+  padding:16px 14px;cursor:pointer;position:relative;
+  transition:color .15s ease;
+}
+.tab-btn:hover{color:var(--ink);}
+.tab-btn.active{color:#fff;}
+.tab-btn.active::after{
+  content:"";position:absolute;left:14px;right:14px;bottom:0;height:2px;
+  background:linear-gradient(90deg,var(--blue),var(--emerald));
+  border-radius:2px 2px 0 0;
+}
+.tab-panel{display:none;padding:28px;}
+.tab-panel.active{display:block;}
+@media(min-width:720px){.tab-panel{padding:34px;}}
+
+/* form controls */
+.field-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+@media(min-width:640px){.field-grid.cols-2{grid-template-columns:1fr 1fr;}}
+@media(min-width:640px){.field-grid.cols-3{grid-template-columns:1fr 1fr 1fr;}}
+.field label{display:block;font-size:12.5px;font-weight:600;color:var(--ink-dim);margin-bottom:7px;}
+.amount-input{position:relative;}
+.amount-input .sym{
+  position:absolute;left:13px;top:50%;transform:translateY(-50%);
+  color:var(--ink-faint);font-weight:600;font-size:15px;pointer-events:none;
+}
+input[type=number],input[type=text],select{
+  width:100%;
+  background:rgba(6,10,22,0.55);
+  border:1px solid var(--panel-border);
+  color:var(--ink);
+  font-family:var(--font-body);font-size:15px;font-weight:500;
+  border-radius:var(--radius-sm);
+  padding:11px 13px;
+  outline:none;
+  transition:border-color .15s ease, box-shadow .15s ease;
+  height:44px;
+}
+.amount-input input{padding-left:30px;}
+input:focus,select:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px var(--blue-soft);
+}
+select{appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0L5 6L10 0Z' fill='%239AA6C2'/></svg>");
+  background-repeat:no-repeat;background-position:right 13px center;padding-right:32px;
+}
+.hint{font-size:12px;color:var(--ink-faint);margin-top:6px;}
+
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:14px;
+  background:rgba(6,10,22,0.4);border:1px solid var(--panel-border);
+  border-radius:var(--radius-sm);padding:12px 14px;}
+.toggle-row .t-label{font-size:13.5px;font-weight:600;}
+.toggle-row .t-desc{font-size:12px;color:var(--ink-faint);margin-top:2px;}
+.switch{position:relative;width:42px;height:24px;flex:none;}
+.switch input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer;}
+.switch .track{
+  position:absolute;inset:0;background:rgba(148,168,210,0.22);border-radius:100px;
+  transition:background .18s ease;
+}
+.switch .knob{
+  position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;
+  background:#cfd8ee;transition:transform .18s ease, background .18s ease;
+}
+.switch input:checked + .track{background:var(--emerald);}
+.switch input:checked + .track .knob{transform:translateX(18px);background:#fff;}
+.switch input:checked ~ .knob{transform:translateX(18px);background:#fff;}
+
+.divider{height:1px;background:var(--panel-border);margin:22px 0;}
+
+/* processor result card */
+.proc-card{
+  border:1px solid var(--panel-border);
+  border-radius:var(--radius-md);
+  padding:20px;
+  background:rgba(6,10,22,0.35);
+}
+.proc-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.proc-dot{width:9px;height:9px;border-radius:50%;flex:none;}
+.dot-paypal{background:#3B82F6;box-shadow:0 0 0 4px rgba(59,130,246,0.18);}
+.dot-stripe{background:#10B981;box-shadow:0 0 0 4px rgba(16,185,129,0.18);}
+.proc-name{font-family:var(--font-display);font-weight:700;font-size:15.5px;color:#fff;}
+.result-line{display:flex;align-items:baseline;justify-content:space-between;padding:8px 0;font-size:14px;}
+.result-line .k{color:var(--ink-dim);}
+.result-line .v{font-weight:700;font-variant-numeric:tabular-nums;}
+.result-line.total{border-top:1px solid var(--panel-border);margin-top:6px;padding-top:14px;}
+.result-line.total .v{font-size:22px;color:var(--emerald);}
+.result-line.total .k{font-size:13.5px;font-weight:600;color:var(--ink);}
+
+/* comparison view */
+.compare-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+@media(min-width:760px){.compare-grid{grid-template-columns:1fr 1fr;}}
+.compare-card{
+  position:relative;border-radius:var(--radius-md);padding:22px;
+  border:1px solid var(--panel-border);background:rgba(6,10,22,0.35);
+  transition:border-color .2s ease, transform .2s ease;
+}
+.compare-card.winner{
+  border-color:rgba(16,185,129,0.55);
+  background:linear-gradient(180deg, rgba(16,185,129,0.08), rgba(6,10,22,0.35) 40%);
+}
+.winner-badge{
+  position:absolute;top:-11px;right:18px;
+  background:var(--emerald);color:#04150e;font-weight:700;font-size:11.5px;
+  padding:5px 11px;border-radius:100px;letter-spacing:.02em;
+  animation:pulse-badge 2.4s ease-in-out infinite;
+}
+@keyframes pulse-badge{
+  0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,0.45);}
+  50%{box-shadow:0 0 0 6px rgba(16,185,129,0);}
+}
+@media (prefers-reduced-motion: reduce){.winner-badge{animation:none;}}
+.big-net{font-family:var(--font-display);font-size:clamp(26px,4vw,34px);font-weight:800;color:#fff;margin-top:2px;}
+.savings-banner{
+  margin-top:18px;border-radius:var(--radius-sm);padding:14px 16px;
+  background:var(--emerald-soft);border:1px solid rgba(16,185,129,0.3);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+}
+.savings-banner .amt{font-family:var(--font-display);font-weight:800;font-size:20px;color:var(--emerald);}
+.annual-row{display:flex;justify-content:space-between;padding:10px 0;font-size:13.5px;border-top:1px solid var(--panel-border);margin-top:10px;}
+.chart-card{
+  margin-top:22px;border:1px solid var(--panel-border);border-radius:var(--radius-md);
+  padding:20px;background:rgba(6,10,22,0.35);
+}
+.chart-card h3{font-size:15px;margin-bottom:2px;}
+.chart-sub{font-size:12.5px;color:var(--ink-faint);margin-bottom:14px;}
+.chart-wrap{position:relative;height:280px;width:100%;}
+
+/* legend chips */
+.legend-row{display:flex;gap:18px;margin-top:12px;flex-wrap:wrap;}
+.legend-chip{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-dim);}
+.legend-chip .sw{width:10px;height:10px;border-radius:3px;}
+
+/* buttons */
+.btn{
+  font-family:var(--font-body);font-weight:600;font-size:14px;
+  border-radius:var(--radius-sm);padding:11px 18px;border:1px solid var(--panel-border);
+  background:transparent;color:var(--ink);cursor:pointer;
+}
+.btn.primary{background:linear-gradient(135deg,var(--blue),#2563EB);border:0;color:#fff;}
+
+/* ---------- SEO content ---------- */
+.content-section{padding:76px 0 20px;}
+.content-section h2{font-size:clamp(23px,2.8vw,29px);margin-bottom:14px;}
+.content-section h3{font-size:18px;margin:26px 0 10px;color:#fff;}
+.content-section p{color:var(--ink-dim);font-size:15.5px;line-height:1.7;margin:0 0 16px;}
+.content-section ul{color:var(--ink-dim);font-size:15.5px;line-height:1.75;padding-left:20px;margin:0 0 18px;}
+.content-section li{margin-bottom:6px;}
+.content-section strong{color:var(--ink);}
+.lede{font-size:17px;color:var(--ink);line-height:1.65;margin-bottom:6px;}
+.rate-table{width:100%;border-collapse:collapse;margin:18px 0 26px;font-size:14px;}
+.rate-table th,.rate-table td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--panel-border);}
+.rate-table th{color:var(--ink-faint);font-weight:600;font-size:12.5px;text-transform:none;}
+.rate-table td{color:var(--ink-dim);}
+.rate-table td.num{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums;}
+.section-divider{border:0;border-top:1px solid var(--panel-border);margin:44px 0;}
+
+/* FAQ */
+.faq-item{border-bottom:1px solid var(--panel-border);}
+.faq-q{
+  width:100%;text-align:left;background:transparent;border:0;color:#fff;
+  font-family:var(--font-display);font-weight:700;font-size:15.5px;
+  padding:18px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;
+}
+.faq-q .chev{flex:none;color:var(--ink-faint);transition:transform .2s ease;font-size:14px;}
+.faq-item.open .faq-q .chev{transform:rotate(180deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+.faq-a p{padding-bottom:18px;color:var(--ink-dim);font-size:14.5px;line-height:1.65;margin:0;}
+
+footer.site{border-top:1px solid var(--panel-border);padding:32px 0 44px;margin-top:40px;}
+.foot-row{display:flex;flex-wrap:wrap;gap:10px 20px;justify-content:space-between;align-items:center;}
+.foot-note{font-size:12.5px;color:var(--ink-faint);max-width:60ch;line-height:1.6;}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap site-row">
+    <div class="brand"><span class="brand-mark">PD</span>PayPalDeduct<span class="tagline" style="font-weight:500;color:var(--ink-faint);margin-left:2px;">— merchant fee calculator</span></div>
+    <span class="pill live">2026 rates</span>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow-row">
+        <span class="pill">PayPal vs Stripe</span>
+        <span class="pill">30+ currencies</span>
+        <span class="pill">Updated for 2026</span>
+      </div>
+      <h1 class="hero-h">What PayPal and Stripe actually take from your next payment</h1>
+      <p class="hero-sub">Enter one amount and see both processors' fees, your net payout, and which one keeps you more money — for checkout, invoicing, in-person, and bank-debit payments alike.</p>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="calc-shell">
+      <div class="tabs" role="tablist" aria-label="Calculator mode">
+        <button class="tab-btn active" data-tab="simple" role="tab" aria-selected="true">Simple</button>
+        <button class="tab-btn" data-tab="advanced" role="tab" aria-selected="false">Advanced</button>
+        <button class="tab-btn" data-tab="compare" role="tab" aria-selected="false">Comparison</button>
+      </div>
+
+      <!-- SIMPLE -->
+      <div class="tab-panel active" id="panel-simple">
+        <div class="field-grid cols-2">
+          <div class="field">
+            <label for="s-amount">Amount</label>
+            <div class="amount-input">
+              <span class="sym" id="s-sym">$</span>
+              <input type="number" id="s-amount" value="500" min="0" step="0.01" inputmode="decimal">
+            </div>
+          </div>
+          <div class="field">
+            <label for="s-currency">Currency</label>
+            <select id="s-currency"></select>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="field-grid cols-2" id="simple-results">
+          <div class="proc-card">
+            <div class="proc-head"><span class="proc-dot dot-paypal"></span><span class="proc-name">PayPal Checkout</span></div>
+            <div class="result-line"><span class="k">Processing fee</span><span class="v" id="s-pp-fee">—</span></div>
+            <div class="result-line"><span class="k">Effective rate</span><span class="v" id="s-pp-eff">—</span></div>
+            <div class="result-line total"><span class="k">You receive</span><span class="v" id="s-pp-net">—</span></div>
+          </div>
+          <div class="proc-card">
+            <div class="proc-head"><span class="proc-dot dot-stripe"></span><span class="proc-name">Stripe Standard</span></div>
+            <div class="result-line"><span class="k">Processing fee</span><span class="v" id="s-st-fee">—</span></div>
+            <div class="result-line"><span class="k">Effective rate</span><span class="v" id="s-st-eff">—</span></div>
+            <div class="result-line total"><span class="k">You receive</span><span class="v" id="s-st-net">—</span></div>
+          </div>
+        </div>
+        <p class="hint" style="margin-top:16px;">Uses each processor's default online rate — PayPal Checkout (3.49% + $0.49) and Stripe Standard (2.9% + $0.30). Switch to <strong style="color:var(--ink-dim);">Advanced</strong> to change transaction type, add cross-border fees, or include tax.</p>
+      </div>
+
+      <!-- ADVANCED -->
+      <div class="tab-panel" id="panel-advanced">
+        <div class="field-grid cols-2">
+          <div class="field">
+            <label for="a-amount">Amount</label>
+            <div class="amount-input">
+              <span class="sym" id="a-sym">$</span>
+              <input type="number" id="a-amount" value="500" min="0" step="0.01" inputmode="decimal">
+            </div>
+          </div>
+          <div class="field">
+            <label for="a-currency">Currency</label>
+            <select id="a-currency"></select>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="field-grid cols-2">
+          <div class="proc-card">
+            <div class="proc-head"><span class="proc-dot dot-paypal"></span><span class="proc-name">PayPal</span></div>
+            <div class="field" style="margin-bottom:12px;">
+              <label for="a-pp-type">Transaction type</label>
+              <select id="a-pp-type"></select>
+            </div>
+            <div class="field-grid cols-2" style="margin-bottom:4px;">
+              <div class="field">
+                <label for="a-pp-pct">Percentage fee</label>
+                <input type="number" id="a-pp-pct" step="0.01" min="0">
+              </div>
+              <div class="field">
+                <label for="a-pp-fixed">Fixed fee</label>
+                <input type="number" id="a-pp-fixed" step="0.01" min="0">
+              </div>
+            </div>
+          </div>
+
+          <div class="proc-card">
+            <div class="proc-head"><span class="proc-dot dot-stripe"></span><span class="proc-name">Stripe</span></div>
+            <div class="field" style="margin-bottom:12px;">
+              <label for="a-st-type">Transaction type</label>
+              <select id="a-st-type"></select>
+            </div>
+            <div class="field-grid cols-2" style="margin-bottom:4px;">
+              <div class="field">
+                <label for="a-st-pct">Percentage fee</label>
+                <input type="number" id="a-st-pct" step="0.01" min="0">
+              </div>
+              <div class="field">
+                <label for="a-st-fixed">Fixed fee</label>
+                <input type="number" id="a-st-fixed" step="0.01" min="0">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="field-grid cols-2">
+          <label class="toggle-row" for="a-xborder">
+            <span><span class="t-label">Cross-border payment</span><br><span class="t-desc">Adds a 1.50% international surcharge to both processors</span></span>
+            <span class="switch"><input type="checkbox" id="a-xborder"><span class="track"><span class="knob"></span></span></span>
+          </label>
+          <label class="toggle-row" for="a-tax">
+            <span><span class="t-label">Include tax (VAT/GST)</span><br><span class="t-desc">Fees are charged on the full amount, tax included</span></span>
+            <span class="switch"><input type="checkbox" id="a-tax"><span class="track"><span class="knob"></span></span></span>
+          </label>
+        </div>
+
+        <div id="a-tax-field" class="field" style="max-width:220px;margin-top:14px;display:none;">
+          <label for="a-tax-rate">Tax rate (%)</label>
+          <input type="number" id="a-tax-rate" value="20" step="0.1" min="0">
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="field-grid cols-2" id="advanced-results">
+          <div class="proc-card">
+            <div class="proc-head"><span class="proc-dot dot-paypal"></span><span class="proc-name">PayPal result</span></div>
+            <div class="result-line"><span class="k">Amount charged</span><span class="v" id="a-pp-gross">—</span></div>
+            <div class="result-line"><span class="k">Processing fee</span><span class="v" id="a-pp-fee">—</span></div>
+            <div class="result-line"><span class="k">Effective rate</span><span class="v" id="a-pp-eff">—</span></div>
+            <div class="result-line total"><span class="k">Net payout</span><span class="v" id="a-pp-net">—</span></div>
+          </div>
+          <div class="proc-card">
+            <div class="proc-head"><span class="proc-dot dot-stripe"></span><span class="proc-name">Stripe result</span></div>
+            <div class="result-line"><span class="k">Amount charged</span><span class="v" id="a-st-gross">—</span></div>
+            <div class="result-line"><span class="k">Processing fee</span><span class="v" id="a-st-fee">—</span></div>
+            <div class="result-line"><span class="k">Effective rate</span><span class="v" id="a-st-eff">—</span></div>
+            <div class="result-line total"><span class="k">Net payout</span><span class="v" id="a-st-net">—</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPARISON -->
+      <div class="tab-panel" id="panel-compare">
+        <div class="field-grid cols-3">
+          <div class="field">
+            <label for="c-amount">Amount per transaction</label>
+            <div class="amount-input">
+              <span class="sym" id="c-sym">$</span>
+              <input type="number" id="c-amount" value="500" min="0" step="0.01" inputmode="decimal">
+            </div>
+          </div>
+          <div class="field">
+            <label for="c-currency">Currency</label>
+            <select id="c-currency"></select>
+          </div>
+          <div class="field">
+            <label for="c-txns">Transactions / year</label>
+            <input type="number" id="c-txns" value="120" min="0" step="1">
+          </div>
+        </div>
+
+        <div class="field-grid cols-2" style="margin-top:16px;">
+          <div class="field">
+            <label for="c-pp-type">PayPal transaction type</label>
+            <select id="c-pp-type"></select>
+          </div>
+          <div class="field">
+            <label for="c-st-type">Stripe transaction type</label>
+            <select id="c-st-type"></select>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;">
+          <label class="toggle-row" for="c-xborder">
+            <span><span class="t-label">Cross-border payment</span><br><span class="t-desc">Adds a 1.50% international surcharge to both processors</span></span>
+            <span class="switch"><input type="checkbox" id="c-xborder"><span class="track"><span class="knob"></span></span></span>
+          </label>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="compare-grid">
+          <div class="compare-card" id="c-card-pp">
+            <div class="proc-head"><span class="proc-dot dot-paypal"></span><span class="proc-name">PayPal</span></div>
+            <div class="hint" style="margin:0;">Net payout on this transaction</div>
+            <div class="big-net" id="c-pp-net">—</div>
+            <div class="result-line"><span class="k">Fee this transaction</span><span class="v" id="c-pp-fee">—</span></div>
+            <div class="result-line"><span class="k">Effective rate</span><span class="v" id="c-pp-eff">—</span></div>
+            <div class="annual-row"><span class="k" style="color:var(--ink-dim)">Annual fee cost</span><span class="v" id="c-pp-annual" style="font-weight:700;">—</span></div>
+          </div>
+          <div class="compare-card" id="c-card-st">
+            <div class="proc-head"><span class="proc-dot dot-stripe"></span><span class="proc-name">Stripe</span></div>
+            <div class="hint" style="margin:0;">Net payout on this transaction</div>
+            <div class="big-net" id="c-st-net">—</div>
+            <div class="result-line"><span class="k">Fee this transaction</span><span class="v" id="c-st-fee">—</span></div>
+            <div class="result-line"><span class="k">Effective rate</span><span class="v" id="c-st-eff">—</span></div>
+            <div class="annual-row"><span class="k" style="color:var(--ink-dim)">Annual fee cost</span><span class="v" id="c-st-annual" style="font-weight:700;">—</span></div>
+          </div>
+        </div>
+
+        <div class="savings-banner">
+          <span id="c-savings-label" style="font-size:13.5px;color:var(--ink-dim);">Cheaper processor saves you</span>
+          <span class="amt" id="c-savings-amt">—</span>
+        </div>
+
+        <div class="chart-card">
+          <h3>Fee curve: $10 → $10,000</h3>
+          <p class="chart-sub">Total fee at each transaction size, using the selected transaction types above.</p>
+          <div class="chart-wrap"><canvas id="feeChart"></canvas></div>
+          <div class="legend-row">
+            <span class="legend-chip"><span class="sw" style="background:#3B82F6;"></span>PayPal</span>
+            <span class="legend-chip"><span class="sw" style="background:#10B981;"></span>Stripe</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO CONTENT -->
+  <article class="content-section">
+    <div class="narrow">
+      <h2>Understanding payment processing fees as a freelancer</h2>
+      <p class="lede">Every payment that lands in your PayPal or Stripe balance has already had a cut taken out of it. For freelancers and small merchants, that cut is rarely a single flat number — it changes based on how the client pays, where they're located, and which product inside PayPal or Stripe actually processed the transaction.</p>
+      <p>Both processors advertise a headline rate, but the number that matters for your business is your <strong>effective fee percentage</strong>: the fee as a share of what the customer actually paid, once the fixed per-transaction charge, any cross-border surcharge, and currency conversion are all accounted for. On a $20 invoice, a $0.49 fixed fee alone is close to 2.5% before the percentage rate is even applied. On a $2,000 contract payment, that same fixed fee barely registers. Merchant fee comparison only makes sense when it's run at your actual transaction sizes, which is why this calculator lets you move the amount and see both numbers update immediately.</p>
+
+      <h3>PayPal's fee structure</h3>
+      <p>PayPal prices differently depending on how the money arrives. A PayPal Checkout button or an emailed invoice runs 3.49% + $0.49, while a goods-and-services payment sent directly from a client's PayPal balance or bank account runs a slightly lower 2.99% + $0.49. In-person card-reader sales through PayPal Zettle drop to 2.29% + $0.09, and very small "micropayments" — transactions typically under $10 — use a higher percentage (4.99%) paired with a smaller fixed fee, since the flat charge would otherwise dominate at that scale.</p>
+
+      <h3>Stripe's fee structure</h3>
+      <p>Stripe's standard online rate is 2.9% + $0.30 for cards and digital wallets, undercutting PayPal's checkout rate on both the percentage and the fixed component. Where Stripe pulls dramatically ahead is invoicing: Stripe Invoicing charges just 0.40% on top of the underlying payment method fee, compared to PayPal's flat 3.49% + $0.49 regardless of invoice size. In-person payments through Stripe Terminal cost 2.7% + $0.05, and ACH Direct Debit — a direct bank-to-bank transfer — costs only 0.8% of the transaction, capped at $5, with no separate fixed fee below that ceiling.</p>
+
+      <table class="rate-table">
+        <thead><tr><th>Processor</th><th>Transaction type</th><th>Rate</th><th>Fixed fee</th></tr></thead>
+        <tbody>
+          <tr><td>PayPal</td><td>Standard Checkout</td><td class="num">3.49%</td><td class="num">$0.49</td></tr>
+          <tr><td>PayPal</td><td>Invoicing</td><td class="num">3.49%</td><td class="num">$0.49</td></tr>
+          <tr><td>PayPal</td><td>In-Person (Zettle)</td><td class="num">2.29%</td><td class="num">$0.09</td></tr>
+          <tr><td>Stripe</td><td>Standard Online</td><td class="num">2.90%</td><td class="num">$0.30</td></tr>
+          <tr><td>Stripe</td><td>Invoicing</td><td class="num">0.40%</td><td class="num">$0.30</td></tr>
+          <tr><td>Stripe</td><td>Terminal (In-Person)</td><td class="num">2.70%</td><td class="num">$0.05</td></tr>
+          <tr><td>Stripe</td><td>ACH Direct Debit</td><td class="num">0.80%</td><td class="num">capped at $5</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="section-divider">
+
+      <h2>Cross-border and currency conversion fees explained</h2>
+      <p>If a client's card or account is issued in a different country from your business, both PayPal and Stripe add a cross-border surcharge — typically 1.5% — on top of the standard processing rate. This is separate from currency conversion: if you're also being paid in a currency different from your own and letting the processor convert it, expect an additional spread of roughly 1% (Stripe) to 3–4% (PayPal), depending on the currency pair and your account's settings.</p>
+      <p>The two fees compound. A $1,000 international invoice paid by a client whose card was issued abroad, converted into your local currency, can carry the standard rate, the 1.5% cross-border surcharge, and a 1–4% conversion spread — pushing the effective cost well past 6% before you factor in the fixed fee. Freelancers working with international clients can often avoid the conversion spread entirely by invoicing in the client's currency and holding a multi-currency balance, converting only when exchange rates are favorable.</p>
+
+      <h3>Practical ways to reduce cross-border costs</h3>
+      <ul>
+        <li>Invoice in the client's local currency rather than forcing a conversion at checkout.</li>
+        <li>Ask recurring clients to pay via bank debit (ACH, SEPA) instead of card where it's available — the percentage rate is usually a fraction of the card rate.</li>
+        <li>Consolidate several small international payments into one larger monthly invoice to dilute the fixed fee.</li>
+        <li>Compare your processor's conversion spread against your bank's mid-market rate before converting balances.</li>
+      </ul>
+
+      <hr class="section-divider">
+
+      <h2>Invoicing fees: PayPal vs Stripe</h2>
+      <p>Invoicing is where the two processors diverge the most. PayPal charges its full 3.49% + $0.49 commercial rate on every invoice regardless of size, which means a $5,000 invoice costs roughly $175 in fees. Stripe Invoicing, by contrast, layers a 0.40% invoicing fee on top of whichever payment method the client actually uses — so a $5,000 invoice paid by card costs around 3.3% total, while the same invoice paid via ACH bank debit costs closer to 1.2%, since Stripe's ACH rate is capped at $5.</p>
+      <p>For freelancers who invoice a handful of large clients each month, this difference compounds quickly. Switching recurring invoices from PayPal to Stripe Invoicing with ACH collection, where the client's bank supports it, is one of the highest-leverage fee reductions available without renegotiating your rates.</p>
+
+      <hr class="section-divider">
+
+      <h2>How processing fees erode net profit margins</h2>
+      <p>A 3% processing fee sounds negligible until it's set against a freelancer's actual margin. If your effective margin on a project — after your own time, tools, and subcontractor costs — is 25%, a 3.5% payment processing fee isn't 3.5% of revenue; it's roughly 14% of your profit. Fees that seem small against gross revenue can represent a meaningful share of what's actually left over.</p>
+      <p>This is why pricing decisions should account for the processor and transaction type up front, not after the invoice is sent. Some freelancers build the expected fee into their day rate; others pass a documented processing surcharge on to the client for card payments, where local regulations allow it. Either way, knowing the exact net payout before a transaction happens — not an estimate after the fact — makes pricing and cash-flow planning considerably more reliable.</p>
+
+      <h3>Annual impact at scale</h3>
+      <p>The comparison view above projects your annual fee cost by multiplying a single transaction's fee by your yearly transaction count. For a freelancer billing $3,000 a month through PayPal Checkout, processing fees alone run close to $1,300 a year. The same volume moved to Stripe Invoicing with bank-debit collection can cut that figure by more than half — money that drops straight to net profit rather than requiring new revenue to replace it.</p>
+
+      <hr class="section-divider">
+
+      <h2>Choosing the right processor for your business</h2>
+      <p>Neither processor is categorically cheaper — the right choice depends on how your clients prefer to pay. PayPal's brand recognition and buyer familiarity can reduce friction and speed up payment, which has a value of its own even at a higher fee. Stripe's lower online rate, near-free invoicing fee, and cheap ACH option tend to favor freelancers who invoice repeat clients directly rather than relying on marketplace-style checkout.</p>
+      <p>A practical approach: keep PayPal available for one-off clients who expect it, and route recurring or larger invoices through Stripe Invoicing with a bank-debit option offered first. Use the comparison view above with your own typical invoice size and volume to see which setup keeps more of your revenue over a full year.</p>
+    </div>
+  </article>
+
+  <!-- FAQ -->
+  <section class="content-section" style="padding-top:12px;">
+    <div class="narrow">
+      <h2>Frequently asked questions</h2>
+      <div id="faq-list">
+        <div class="faq-item open">
+          <button class="faq-q" aria-expanded="true">Is PayPal or Stripe cheaper for freelancers?<span class="chev">▾</span></button>
+          <div class="faq-a"><p>For a standard card payment, Stripe's 2.9% + $0.30 online rate usually costs less than PayPal's 3.49% + $0.49 Checkout rate, though PayPal's 2.99% + $0.49 goods-and-services rate narrows the gap. Stripe pulls further ahead on invoicing, where its 0.40% rate undercuts PayPal's 3.49%. The cheaper option depends on transaction size, volume, and whether payments are card-based or bank-based.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">What is a cross-border fee?<span class="chev">▾</span></button>
+          <div class="faq-a"><p>A cross-border fee is a surcharge, typically 1.5% on both PayPal and Stripe, added when the buyer's card or account is issued in a different country from the seller's. It stacks on top of the standard processing rate, and if the currency is also converted, an additional 1% to 4% conversion spread can apply.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Do processing fees apply before or after tax?<span class="chev">▾</span></button>
+          <div class="faq-a"><p>Processing fees are calculated on the total amount charged to the customer, including any VAT or sales tax collected. The fee itself is a business expense, not a tax, so freelancers should track it separately from the tax they remit to authorities.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">How can I reduce PayPal or Stripe fees?<span class="chev">▾</span></button>
+          <div class="faq-a"><p>Batch smaller payments into larger invoices to dilute the fixed fee, use bank-based rails like ACH where the percentage rate is lower, avoid unnecessary currency conversion by invoicing in the client's local currency, and negotiate custom rates once monthly volume is significant.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">What's the cheapest way to invoice international clients?<span class="chev">▾</span></button>
+          <div class="faq-a"><p>For recurring or larger international invoices, Stripe Invoicing at 0.40% plus the underlying card or bank fee is typically far cheaper than PayPal Invoicing at 3.49% + $0.49 plus the 1.5% cross-border surcharge. For very large one-off transfers, a dedicated wire or low-fee transfer service can beat both.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Are Stripe ACH fees cheaper than card fees?<span class="chev">▾</span></button>
+          <div class="faq-a"><p>Yes. Stripe ACH Direct Debit charges 0.80% of the transaction capped at $5, with no fixed per-transaction fee below that cap. On a $1,000 invoice, ACH costs $8 versus roughly $29 for a standard online card payment, making it the cheaper choice whenever a client can pay by bank transfer.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-row">
+      <div class="brand" style="font-size:14.5px;"><span class="brand-mark" style="width:24px;height:24px;font-size:11px;">PD</span>PayPalDeduct</div>
+      <span class="pill">2026 published rates</span>
+    </div>
+    <p class="foot-note" style="margin-top:16px;">Figures are estimates based on each processor's published 2026 US rate cards and are provided for planning purposes only. Actual fees depend on your account type, country, negotiated rate, and the specific payment method used. Always confirm current rates directly with PayPal and Stripe before pricing a product or contract.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- Currency data ---------------- */
+  var CURRENCIES = [
+    ["USD","$","US Dollar"],["EUR","€","Euro"],["GBP","£","British Pound"],["AUD","A$","Australian Dollar"],
+    ["CAD","C$","Canadian Dollar"],["JPY","¥","Japanese Yen"],["SGD","S$","Singapore Dollar"],["HKD","HK$","Hong Kong Dollar"],
+    ["INR","₹","Indian Rupee"],["MXN","MX$","Mexican Peso"],["BRL","R$","Brazilian Real"],["CHF","Fr","Swiss Franc"],
+    ["SEK","kr","Swedish Krona"],["NOK","kr","Norwegian Krone"],["DKK","kr","Danish Krone"],["NZD","NZ$","New Zealand Dollar"],
+    ["ZAR","R","South African Rand"],["AED","د.إ","UAE Dirham"],["SAR","﷼","Saudi Riyal"],["TRY","₺","Turkish Lira"],
+    ["PLN","zł","Polish Złoty"],["CZK","Kč","Czech Koruna"],["PHP","₱","Philippine Peso"],["IDR","Rp","Indonesian Rupiah"],
+    ["THB","฿","Thai Baht"],["MYR","RM","Malaysian Ringgit"],["KRW","₩","South Korean Won"],["TWD","NT$","Taiwan Dollar"],
+    ["NGN","₦","Nigerian Naira"],["EGP","E£","Egyptian Pound"],["PKR","₨","Pakistani Rupee"],["BDT","৳","Bangladeshi Taka"]
+  ];
+
+  function populateCurrencySelect(sel){
+    CURRENCIES.forEach(function(c){
+      var o = document.createElement("option");
+      o.value = c[0];
+      o.textContent = c[0] + " — " + c[2];
+      sel.appendChild(o);
+    });
+  }
+  ["s-currency","a-currency","c-currency"].forEach(function(id){
+    populateCurrencySelect(document.getElementById(id));
+  });
+  function symbolFor(code){
+    for (var i=0;i<CURRENCIES.length;i++){ if (CURRENCIES[i][0]===code) return CURRENCIES[i][1]; }
+    return "$";
+  }
+
+  /* ---------------- Rate tables ---------------- */
+  var PP_TYPES = {
+    standard: {label:"Standard Checkout", pct:3.49, fixed:0.49},
+    invoicing:{label:"Invoicing", pct:3.49, fixed:0.49},
+    inperson: {label:"In-Person (Zettle)", pct:2.29, fixed:0.09}
+  };
+  var ST_TYPES = {
+    standard: {label:"Standard Online", pct:2.90, fixed:0.30},
+    invoicing:{label:"Invoicing", pct:0.40, fixed:0.30},
+    terminal: {label:"Terminal (In-Person)", pct:2.70, fixed:0.05},
+    ach:      {label:"ACH Direct Debit", pct:0.80, fixed:0.00, cap:5.00}
+  };
+  var XBORDER_SURCHARGE = 1.50;
+
+  function populateTypeSelect(sel, table){
+    Object.keys(table).forEach(function(key){
+      var o = document.createElement("option");
+      o.value = key;
+      o.textContent = table[key].label;
+      sel.appendChild(o);
+    });
+  }
+  populateTypeSelect(document.getElementById("a-pp-type"), PP_TYPES);
+  populateTypeSelect(document.getElementById("a-st-type"), ST_TYPES);
+  populateTypeSelect(document.getElementById("c-pp-type"), PP_TYPES);
+  populateTypeSelect(document.getElementById("c-st-type"), ST_TYPES);
+
+  /* ---------------- Fee math ---------------- */
+  function computeFee(amount, pct, fixed){
+    if (!isFinite(amount) || amount < 0) amount = 0;
+    var fee = amount * (pct/100) + (fixed||0);
+    var net = amount - fee;
+    var eff = amount > 0 ? (fee/amount)*100 : 0;
+    return {fee:fee, net:net, eff:eff};
+  }
+
+  function fmtMoney(v, sym){
+    var neg = v < 0;
+    var out = sym + Math.abs(v).toLocaleString(undefined,{minimumFractionDigits:2, maximumFractionDigits:2});
+    return neg ? "−" + out : out;
+  }
+  function fmtPct(v){ return v.toLocaleString(undefined,{minimumFractionDigits:2, maximumFractionDigits:2}) + "%"; }
+
+  /* ---------------- SIMPLE TAB ---------------- */
+  var sAmount = document.getElementById("s-amount");
+  var sCurrency = document.getElementById("s-currency");
+  var sSym = document.getElementById("s-sym");
+
+  function renderSimple(){
+    var sym = symbolFor(sCurrency.value);
+    sSym.textContent = sym;
+    var amt = parseFloat(sAmount.value) || 0;
+
+    var pp = computeFee(amt, PP_TYPES.standard.pct, PP_TYPES.standard.fixed);
+    var st = computeFee(amt, ST_TYPES.standard.pct, ST_TYPES.standard.fixed);
+
+    document.getElementById("s-pp-fee").textContent = fmtMoney(pp.fee, sym);
+    document.getElementById("s-pp-eff").textContent = fmtPct(pp.eff);
+    document.getElementById("s-pp-net").textContent = fmtMoney(pp.net, sym);
+
+    document.getElementById("s-st-fee").textContent = fmtMoney(st.fee, sym);
+    document.getElementById("s-st-eff").textContent = fmtPct(st.eff);
+    document.getElementById("s-st-net").textContent = fmtMoney(st.net, sym);
+  }
+  sAmount.addEventListener("input", renderSimple);
+  sCurrency.addEventListener("change", renderSimple);
+
+  /* ---------------- ADVANCED TAB ---------------- */
+  var aAmount = document.getElementById("a-amount");
+  var aCurrency = document.getElementById("a-currency");
+  var aSym = document.getElementById("a-sym");
+  var aPpType = document.getElementById("a-pp-type");
+  var aStType = document.getElementById("a-st-type");
+  var aPpPct = document.getElementById("a-pp-pct");
+  var aPpFixed = document.getElementById("a-pp-fixed");
+  var aStPct = document.getElementById("a-st-pct");
+  var aStFixed = document.getElementById("a-st-fixed");
+  var aXborder = document.getElementById("a-xborder");
+  var aTax = document.getElementById("a-tax");
+  var aTaxField = document.getElementById("a-tax-field");
+  var aTaxRate = document.getElementById("a-tax-rate");
+
+  function loadDefaults(typeSel, table, pctInput, fixedInput){
+    var t = table[typeSel.value];
+    pctInput.value = t.pct;
+    fixedInput.value = t.fixed;
+  }
+  loadDefaults(aPpType, PP_TYPES, aPpPct, aPpFixed);
+  loadDefaults(aStType, ST_TYPES, aStPct, aStFixed);
+  aPpType.addEventListener("change", function(){ loadDefaults(aPpType, PP_TYPES, aPpPct, aPpFixed); renderAdvanced(); });
+  aStType.addEventListener("change", function(){ loadDefaults(aStType, ST_TYPES, aStPct, aStFixed); renderAdvanced(); });
+
+  aTax.addEventListener("change", function(){
+    aTaxField.style.display = aTax.checked ? "block" : "none";
+    renderAdvanced();
+  });
+
+  function renderAdvanced(){
+    var sym = symbolFor(aCurrency.value);
+    aSym.textContent = sym;
+    var base = parseFloat(aAmount.value) || 0;
+
+    var gross = base;
+    if (aTax.checked){
+      var rate = parseFloat(aTaxRate.value) || 0;
+      gross = base * (1 + rate/100);
+    }
+
+    var xb = aXborder.checked ? XBORDER_SURCHARGE : 0;
+
+    var ppPct = (parseFloat(aPpPct.value) || 0) + xb;
+    var ppFixed = parseFloat(aPpFixed.value) || 0;
+    var pp = computeFee(gross, ppPct, ppFixed);
+
+    var stCap = (aStType.value === "ach") ? 5.00 : undefined;
+    var stPct = (parseFloat(aStPct.value) || 0) + xb;
+    var stFixed = parseFloat(aStFixed.value) || 0;
+    var st;
+    if (stCap){
+      var stFeeCapped = Math.min(gross * (stPct/100), stCap);
+      st = {fee: stFeeCapped, net: gross - stFeeCapped, eff: gross>0 ? (stFeeCapped/gross)*100 : 0};
+    } else {
+      st = computeFee(gross, stPct, stFixed);
+    }
+
+    document.getElementById("a-pp-gross").textContent = fmtMoney(gross, sym);
+    document.getElementById("a-pp-fee").textContent = fmtMoney(pp.fee, sym);
+    document.getElementById("a-pp-eff").textContent = fmtPct(pp.eff);
+    document.getElementById("a-pp-net").textContent = fmtMoney(pp.net, sym);
+
+    document.getElementById("a-st-gross").textContent = fmtMoney(gross, sym);
+    document.getElementById("a-st-fee").textContent = fmtMoney(st.fee, sym);
+    document.getElementById("a-st-eff").textContent = fmtPct(st.eff);
+    document.getElementById("a-st-net").textContent = fmtMoney(st.net, sym);
+  }
+  [aAmount, aCurrency, aPpPct, aPpFixed, aStPct, aStFixed, aXborder, aTaxRate].forEach(function(el){
+    el.addEventListener("input", renderAdvanced);
+    el.addEventListener("change", renderAdvanced);
+  });
+
+  /* ---------------- COMPARISON TAB ---------------- */
+  var cAmount = document.getElementById("c-amount");
+  var cCurrency = document.getElementById("c-currency");
+  var cSym = document.getElementById("c-sym");
+  var cTxns = document.getElementById("c-txns");
+  var cPpType = document.getElementById("c-pp-type");
+  var cStType = document.getElementById("c-st-type");
+  var cXborder = document.getElementById("c-xborder");
+
+  var chartInstance = null;
+
+  function feeForType(amount, table, key, xbPct, capApplies){
+    var t = table[key];
+    var pct = t.pct + xbPct;
+    if (t.cap){
+      return Math.min(amount * (pct/100), t.cap);
+    }
+    return amount * (pct/100) + (t.fixed||0);
+  }
+
+  function renderCompare(){
+    var sym = symbolFor(cCurrency.value);
+    cSym.textContent = sym;
+    var amt = parseFloat(cAmount.value) || 0;
+    var txns = parseFloat(cTxns.value) || 0;
+    var xb = cXborder.checked ? XBORDER_SURCHARGE : 0;
+
+    var ppFee = feeForType(amt, PP_TYPES, cPpType.value, xb);
+    var stFee = feeForType(amt, ST_TYPES, cStType.value, xb);
+    var ppNet = amt - ppFee;
+    var stNet = amt - stFee;
+    var ppEff = amt>0 ? (ppFee/amt)*100 : 0;
+    var stEff = amt>0 ? (stFee/amt)*100 : 0;
+
+    document.getElementById("c-pp-net").textContent = fmtMoney(ppNet, sym);
+    document.getElementById("c-pp-fee").textContent = fmtMoney(ppFee, sym);
+    document.getElementById("c-pp-eff").textContent = fmtPct(ppEff);
+    document.getElementById("c-pp-annual").textContent = fmtMoney(ppFee*txns, sym);
+
+    document.getElementById("c-st-net").textContent = fmtMoney(stNet, sym);
+    document.getElementById("c-st-fee").textContent = fmtMoney(stFee, sym);
+    document.getElementById("c-st-eff").textContent = fmtPct(stEff);
+    document.getElementById("c-st-annual").textContent = fmtMoney(stFee*txns, sym);
+
+    var ppCard = document.getElementById("c-card-pp");
+    var stCard = document.getElementById("c-card-st");
+    ppCard.classList.remove("winner"); stCard.classList.remove("winner");
+    var oldBadge = document.querySelector(".winner-badge");
+    if (oldBadge) oldBadge.remove();
+
+    var savingsPerTxn = Math.abs(ppFee - stFee);
+    var annualSavings = savingsPerTxn * txns;
+    var label = document.getElementById("c-savings-label");
+    var amtEl = document.getElementById("c-savings-amt");
+
+    if (Math.abs(ppFee - stFee) < 0.005){
+      label.textContent = "Both processors cost about the same here";
+      amtEl.textContent = fmtMoney(0, sym);
+    } else if (ppFee < stFee){
+      ppCard.classList.add("winner");
+      var b1 = document.createElement("span"); b1.className="winner-badge"; b1.textContent="Cheaper";
+      ppCard.appendChild(b1);
+      label.textContent = "PayPal saves you, annually";
+      amtEl.textContent = fmtMoney(annualSavings, sym);
+    } else {
+      stCard.classList.add("winner");
+      var b2 = document.createElement("span"); b2.className="winner-badge"; b2.textContent="Cheaper";
+      stCard.appendChild(b2);
+      label.textContent = "Stripe saves you, annually";
+      amtEl.textContent = fmtMoney(annualSavings, sym);
+    }
+
+    renderChart(sym, cPpType.value, cStType.value, xb);
+  }
+
+  function renderChart(sym, ppKey, stKey, xb){
+    var points = [10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 7500, 10000];
+    var ppData = points.map(function(p){ return +feeForType(p, PP_TYPES, ppKey, xb).toFixed(2); });
+    var stData = points.map(function(p){ return +feeForType(p, ST_TYPES, stKey, xb).toFixed(2); });
+
+    var ctx = document.getElementById("feeChart").getContext("2d");
+    if (chartInstance) chartInstance.destroy();
+    chartInstance = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: points.map(function(p){ return sym + p.toLocaleString(); }),
+        datasets: [
+          {
+            label: "PayPal fee",
+            data: ppData,
+            borderColor: "#3B82F6",
+            backgroundColor: "rgba(59,130,246,0.12)",
+            fill: true,
+            tension: 0.3,
+            pointRadius: 3,
+            pointBackgroundColor: "#3B82F6"
+          },
+          {
+            label: "Stripe fee",
+            data: stData,
+            borderColor: "#10B981",
+            backgroundColor: "rgba(16,185,129,0.12)",
+            fill: true,
+            tension: 0.3,
+            pointRadius: 3,
+            pointBackgroundColor: "#10B981"
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 500 },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(ctx){ return ctx.dataset.label + ": " + sym + ctx.parsed.y.toFixed(2); }
+            }
+          }
+        },
+        scales: {
+          x: { grid: { color: "rgba(148,168,210,0.1)" }, ticks: { color: "#9AA6C2", font:{ family:"Inter", size:11 } } },
+          y: { grid: { color: "rgba(148,168,210,0.1)" }, ticks: { color: "#9AA6C2", font:{ family:"Inter", size:11 }, callback: function(v){ return sym + v; } } }
+        }
+      }
+    });
+  }
+
+  [cAmount, cCurrency, cTxns, cPpType, cStType, cXborder].forEach(function(el){
+    el.addEventListener("input", renderCompare);
+    el.addEventListener("change", renderCompare);
+  });
+
+  /* ---------------- Tabs ---------------- */
+  var tabBtns = document.querySelectorAll(".tab-btn");
+  var panels = {
+    simple: document.getElementById("panel-simple"),
+    advanced: document.getElementById("panel-advanced"),
+    compare: document.getElementById("panel-compare")
+  };
+  tabBtns.forEach(function(btn){
+    btn.addEventListener("click", function(){
+      tabBtns.forEach(function(b){ b.classList.remove("active"); b.setAttribute("aria-selected","false"); });
+      btn.classList.add("active"); btn.setAttribute("aria-selected","true");
+      Object.keys(panels).forEach(function(k){ panels[k].classList.remove("active"); });
+      panels[btn.dataset.tab].classList.add("active");
+      if (btn.dataset.tab === "compare") renderCompare();
+    });
+  });
+
+  /* ---------------- FAQ accordion ---------------- */
+  document.querySelectorAll(".faq-item").forEach(function(item){
+    var q = item.querySelector(".faq-q");
+    var a = item.querySelector(".faq-a");
+    function setState(open){
+      if (open){
+        item.classList.add("open");
+        q.setAttribute("aria-expanded","true");
+        a.style.maxHeight = a.scrollHeight + "px";
+      } else {
+        item.classList.remove("open");
+        q.setAttribute("aria-expanded","false");
+        a.style.maxHeight = "0px";
+      }
+    }
+    setState(item.classList.contains("open"));
+    q.addEventListener("click", function(){ setState(!item.classList.contains("open")); });
+  });
+
+  /* ---------------- Init ---------------- */
+  renderSimple();
+  renderAdvanced();
+  renderCompare();
+})();
+</script>
+
+</body>
+</html>
